@@ -31,7 +31,7 @@ module Flatware
         timed_files, untimed_files = timed_and_untimed_files(
           sum_seconds(load_persisted_example_statuses)
         )
-
+        puts "timed_files: #{timed_files.size}, untimed_files: #{untimed_files.size}"
         balance_jobs(
           bucket_count: [files_to_run.size, workers].min,
           timed_files: timed_files,
@@ -67,6 +67,7 @@ module Flatware
       end
 
       def load_persisted_example_statuses
+        puts "loading persisted example statuses from #{example_status_persistence_file_path}"
         ::RSpec::Core::ExampleStatusPersister.load_from(
           example_status_persistence_file_path || ''
         )
